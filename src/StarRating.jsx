@@ -15,11 +15,13 @@ export const StarRating = ({
   color = "#fcc419",
   size = "24px",
   messages = [],
+  onSetRating,
 }) => {
   const [rating, setRating] = useState(0);
   const [tempRating, setTempRating] = useState(0);
   const handleRating = (rating) => {
     setRating(rating);
+    onSetRating(rating);
   };
   const onHoverIn = (rating) => {
     setTempRating(rating);
