@@ -159,6 +159,12 @@ const MovieDetails = ({ selectedId, onCloseMovie, onAddWatched, watched }) => {
     setUserRating(rating);
   };
   useEffect(() => {
+    if (!title) return;
+    document.title = `Movie | ${title}`;
+    return () => (document.title = "Showey");
+  }, [title]);
+
+  useEffect(() => {
     setIsLoading(true);
 
     const fetchMovieDetails = async () => {
