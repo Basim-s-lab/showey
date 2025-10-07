@@ -177,6 +177,17 @@ const MovieDetails = ({ selectedId, onCloseMovie, onAddWatched, watched }) => {
     };
     fetchMovieDetails();
   }, [selectedId]);
+
+  useEffect(() => {
+    const callBack = (e) => {
+      if (e.key === "Escape") {
+        onCloseMovie();
+      }
+    };
+    document.addEventListener("keydown", callBack);
+    return () => document.removeEventListener("keydown", callBack);
+  }, [onCloseMovie]);
+
   return (
     <div className="details">
       {isLoading ? (
@@ -315,7 +326,7 @@ export default function App() {
   const [watched, setWatched] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
-  const [query, setQuery] = useState("Interstellar");
+  const [query, setQuery] = useState("");
   const [selectedId, setSelectedId] = useState(null);
 
   const handleSelectedMovie = (id) => {
@@ -364,7 +375,7 @@ export default function App() {
       setIsLoading(false);
       return;
     }
-
+    handleCloseMovie();
     fetchMovies();
     return () => controller.abort();
   }, [query]);
