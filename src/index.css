@@ -29,10 +29,6 @@ body {
   padding: 2.4rem;
 }
 
-::-webkit-scrollbar-button {
-  display: none;
-}
-
 /* ******* */
 
 .nav-bar {
