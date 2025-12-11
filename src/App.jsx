@@ -147,6 +147,12 @@ const MovieDetails = ({ selectedId, onCloseMovie }) => {
     };
     getMovieDetails();
   }, [selectedId]);
+
+  useEffect(() => {
+    if (!title) return;
+    document.title = `Movie | ${title}`;
+    return () => (document.title = "Showey");
+  }, [title]);
   return (
     <div className="details">
       {isLoading ? (
