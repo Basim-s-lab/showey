@@ -281,12 +281,14 @@ export default function App() {
     setSelectedId(null);
   };
   useEffect(() => {
+    const controller = new AbortController();
     setIsLoading(true);
     setError("");
     const fetchMovies = async () => {
       try {
         const res = await fetch(
-          `https://www.omdbapi.com/?apikey=${KEY}&s=${query}`
+          `https://www.omdbapi.com/?apikey=${KEY}&s=${query}`,
+          { signal: controller.signal }
         );
         if (!res.ok)
           throw new Error("Something went wrong with fetching movies");
@@ -307,6 +309,7 @@ export default function App() {
     }
 
     fetchMovies();
+    () => controller.abort();
   }, [query]);
   return (
     <>
