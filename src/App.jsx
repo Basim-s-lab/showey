@@ -137,7 +137,7 @@ const MovieDetails = ({ selectedId, onCloseMovie }) => {
   } = movie;
   useEffect(() => {
     const callBack = (e) => {
-      if (e.code === "Escape") {
+      if (e.code === "Escape" || e.code === "Backspace") {
         onCloseMovie();
       }
     };
