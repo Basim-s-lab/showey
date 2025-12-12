@@ -308,10 +308,13 @@ const ErrorMessage = ({ msg }) => {
 const KEY = "bafc29c1";
 export default function App() {
   const [movies, setMovies] = useState([]);
-  const [watched, setWatched] = useState([]);
+  const [watched, setWatched] = useState(() => {
+    const storedWatchedValue = JSON.parse(localStorage.getItem("watched"));
+    return storedWatchedValue;
+  });
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
-  const [query, setQuery] = useState("Interstellar");
+  const [query, setQuery] = useState("");
   const [selectedId, setSelectedId] = useState(null);
 
   const handleSelectedMovie = (id) => {
@@ -328,6 +331,10 @@ export default function App() {
   const handleDeleteWatchedMovie = (id) => {
     setWatched((watched) => watched.filter((movie) => movie.imdbID !== id));
   };
+
+  useEffect(() => {
+    localStorage.setItem("watched", JSON.stringify(watched));
+  }, [watched]);
   useEffect(() => {
     const controller = new AbortController();
     setIsLoading(true);
