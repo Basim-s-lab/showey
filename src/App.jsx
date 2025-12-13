@@ -2,6 +2,7 @@ import { useState, useEffect, useRef } from "react";
 import StarRating from "./StarRating.jsx";
 import { useMovies } from "./useMovies.js";
 import { useLocalStorage } from "./useLocalStorage.js";
+import { useKeydown } from "./useKeydown.js";
 
 const average = (arr) =>
   arr.reduce((acc, cur, i, arr) => acc + cur / arr.length, 0);
@@ -21,18 +22,24 @@ const Logo = () => {
 
 const Search = ({ query, setQuery }) => {
   const inputElement = useRef(null);
-  useEffect(() => {
-    const callBack = (e) => {
-      if (document.activeElement === inputElement.current) return;
-      if (e.code === "Enter") {
-        inputElement.current.focus();
-        setQuery("");
-      }
-    };
+
+  useKeydown("Enter", () => {
     if (document.activeElement === inputElement.current) return;
-    document.addEventListener("keydown", callBack);
-    return () => document.removeEventListener("keydown", callBack);
-  }, [setQuery]);
+    inputElement.current.focus();
+    setQuery("");
+  });
+  // useEffect(() => {
+  //   const callBack = (e) => {
+  //     if (document.activeElement === inputElement.current) return;
+  //     if (e.code === "Enter") {
+  //       inputElement.current.focus();
+  //       setQuery("");
+  //     }
+  //   };
+  //   if (document.activeElement === inputElement.current) return;
+  //   document.addEventListener("keydown", callBack);
+  //   return () => document.removeEventListener("keydown", callBack);
+  // }, [setQuery]);
   return (
     <input
       className="search"
@@ -127,15 +134,7 @@ const MovieDetails = ({ selectedId, onCloseMovie, onAddWatchedMovie }) => {
     onAddWatchedMovie(newWatchedMovie);
     onCloseMovie();
   };
-  useEffect(() => {
-    const callBack = (e) => {
-      if (e.code === "Escape" || e.code === "Backspace") {
-        onCloseMovie();
-      }
-    };
-    document.addEventListener("keydown", callBack);
-    return () => document.removeEventListener("keydown", callBack);
-  }, [onCloseMovie]);
+  useKeydown("Escape", onCloseMovie);
   useEffect(() => {
     const getMovieDetails = async () => {
       setIsLoading(true);
