@@ -28,18 +28,6 @@ const Search = ({ query, setQuery }) => {
     inputElement.current.focus();
     setQuery("");
   });
-  // useEffect(() => {
-  //   const callBack = (e) => {
-  //     if (document.activeElement === inputElement.current) return;
-  //     if (e.code === "Enter") {
-  //       inputElement.current.focus();
-  //       setQuery("");
-  //     }
-  //   };
-  //   if (document.activeElement === inputElement.current) return;
-  //   document.addEventListener("keydown", callBack);
-  //   return () => document.removeEventListener("keydown", callBack);
-  // }, [setQuery]);
   return (
     <input
       className="search"
