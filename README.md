@@ -50,6 +50,7 @@
 - **Custom Hooks**
 - **Keypress navigation**
 - **Local storage to store user data**
+- **API**
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
